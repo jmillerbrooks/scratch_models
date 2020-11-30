@@ -1,6 +1,34 @@
 import numpy as np
 
 
+def descend_step(thetas, gradient, step_size):
+    """Descend one step in the direction of gradient, multiplied by
+    scalar step_size, by adding step_size*gradient to the coefficient vector
+    thetas"""
+    step = step_size * gradient
+    return thetas - step
+
+
+def gradient_vector_thetas(X, y, thetas):
+    residuals = y - X.dot(thetas)
+    gradient = 2 * X.T.dot(residuals)
+    return gradient
+
+
+def add_intercept(X):
+    """helper function to add bias/intercept column to a feature matrix X,
+    returns X with a leading column of ones added"""
+    X_with_intercept = np.c_[np.ones((X.shape[0], 1)), X]
+    return X_with_intercept
+
+
+def batch_gradient_descent(X, y, eta0=.01, max_iter=10, thetas=None):
+    X_bias = add_intercept(X)
+    if thetas is None:
+        thetas = np.random.randn((X.shape[1], 1))
+    return thetas
+
+
 class LinRegScratch():
     def __init__(self):
         pass
